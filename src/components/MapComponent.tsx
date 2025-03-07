@@ -31,7 +31,6 @@ const createCustomIcon = (category: string) => {
 
 const MapComponent = ({ points }: MapComponentProps) => {
   const [routes, setRoutes] = useState<[number, number][][]>([]);
-  const [routesLoaded, setRoutesLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const mapRef = useRef<L.Map>(null);
 
@@ -40,7 +39,6 @@ const MapComponent = ({ points }: MapComponentProps) => {
       if (points.length === 0) return;
       
       setLoading(true);
-      setRoutesLoaded(false);
       const newRoutes: [number, number][][] = [];
       
       try {
@@ -62,7 +60,6 @@ const MapComponent = ({ points }: MapComponentProps) => {
         
         if (newRoutes.length > 0) {
           setRoutes(newRoutes);
-          setRoutesLoaded(true);
         }
       } catch (error) {
         console.error('Erro ao calcular rotas:', error);
