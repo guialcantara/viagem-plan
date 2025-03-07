@@ -203,7 +203,7 @@ export const getRouteBetweenPoints = async (
 ): Promise<[number, number][]> => {
   try {
     const response = await fetch(
-      `http://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`
+      `https://router.project-osrm.org/route/v1/driving/${start[1]},${start[0]};${end[1]},${end[0]}?overview=full&geometries=geojson`
     );
     
     if (!response.ok) {
