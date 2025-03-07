@@ -40,18 +40,22 @@ function App() {
 
   useEffect(() => {
     const params = getParams()
-    if (params.cities.length > 0) {
-      const citiesFromUrl = params.cities
-        .map(id => cities.find(c => c.id === id))
-        .filter((city): city is City => city !== undefined)
-        .slice(0, 2); // Limita a 2 cidades
-      setSelectedCities(citiesFromUrl)
+    const citiesFromUrl = params.cities.length > 0 ? params.cities.slice(0, 3) : [];
+    const categoriesFromUrl = params.categories.length > 0 ? params.categories : [];
+    
+    if (citiesFromUrl.length > 0) {
+      const selectedCities = citiesFromUrl
+        .map(id => cities.find(city => city.id === id))
+        .filter((city): city is City => city !== undefined);
+      setSelectedCities(selectedCities);
     }
-    setFilters({
-      categories: params.categories,
-      maxDistance: params.maxDistance,
-      maxPoints: params.maxPoints
-    })
+    
+    if (categoriesFromUrl.length > 0) {
+      setFilters(prev => ({
+        ...prev,
+        categories: categoriesFromUrl
+      }));
+    }
   }, [])
 
   const handleGetStarted = () => {
@@ -64,8 +68,8 @@ function App() {
       return
     }
 
-    if (selectedCities.length > 2) {
-      setError('Selecione no máximo 2 cidades')
+    if (selectedCities.length > 3) {
+      setError('Selecione no máximo 3 cidades')
       return
     }
 
@@ -117,6 +121,15 @@ function App() {
     window.open('https://guilherme-alcantara.vercel.app/', '_blank');
   };
 
+  const handleCitiesChange = (newCities: City[]) => {
+    if (newCities.length > 3) {
+      setError('Você pode selecionar no máximo 3 cidades');
+      return;
+    }
+    setSelectedCities(newCities);
+    setError(null);
+  };
+
   return (
     <Box sx={{ height: '100vh', width: '100vw' }}>
       {showLanding ? (
@@ -158,8 +171,8 @@ function App() {
               <Box sx={{ p: 3 }}>
                 <CitySelector
                   selectedCities={selectedCities}
-                  onCitiesChange={setSelectedCities}
-                  maxCities={2}
+                  onCitiesChange={handleCitiesChange}
+                  maxCities={3}
                 />
               </Box>
               <Box sx={{ px: 3, pb: 2 }}>
