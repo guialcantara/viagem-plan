@@ -2,14 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { getTouristPoints, getCityCoordinates, TouristPoint, getRouteBetweenPoints, categoryInfo } from '../services/touristService';
-import { Box, CircularProgress, Typography, Alert, IconButton, Tooltip, Button } from '@mui/material';
+import { TouristPoint, getRouteBetweenPoints, categoryInfo } from '../services/touristService';
+import { Box, CircularProgress, Typography, Tooltip, Button } from '@mui/material';
 import Legend from './Legend';
-import ShareRouteDialog from './ShareRouteDialog';
-import { Share, Person } from '@mui/icons-material';
-import 'leaflet-polylinedecorator';
-
-
+import { Person } from '@mui/icons-material';
 
 // Corrigindo o problema dos ícones do Leaflet
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -48,7 +44,6 @@ const MapComponent = ({ points }: MapComponentProps) => {
       const newRoutes: [number, number][][] = [];
       
       try {
-        // Calcula rotas entre todos os pontos consecutivos
         for (let i = 0; i < points.length - 1; i++) {
           try {
             const route = await getRouteBetweenPoints(

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Paper, Typography, Grid, IconButton, Collapse } from '@mui/material';
 import { categoryInfo } from '../services/touristService';
-import { ExpandMore, ExpandLess } from '@mui/icons-material';
+import { ExpandMore } from '@mui/icons-material';
 
 const Legend = () => {
   const [isOpen, setIsOpen] = useState(true);

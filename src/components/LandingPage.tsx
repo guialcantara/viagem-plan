@@ -84,16 +84,17 @@ const LandingPage = ({ onGetStarted }: LandingPageProps) => {
               }} 
             />
             <Typography
-              variant="h1"
+              variant="h2"
               sx={{
-                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4rem' },
-                fontWeight: 700,
-                color: 'primary.main',
-                textAlign: 'center',
+                fontWeight: 'bold',
                 mb: 2,
+                background: 'linear-gradient(45deg, #fff 30%, #e3f2fd 90%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 0 30px rgba(255,255,255,0.3)',
               }}
             >
-              viagemPlan
+              ViagemPlan
             </Typography>
             <Typography
               variant="h3"

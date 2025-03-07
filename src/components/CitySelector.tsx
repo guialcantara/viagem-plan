@@ -18,49 +18,6 @@ interface City {
   state: string;
 }
 
-// Função simples para calcular distância entre duas cidades (mock)
-const calculateDistance = (city1: City, city2: City): number => {
-  // Aqui você pode implementar um cálculo real de distância
-  // Por enquanto, retornamos um valor aleatório entre 100 e 1000
-  return Math.floor(Math.random() * 900) + 100;
-};
-
-// Função para otimizar a rota (mock)
-const optimizeRoute = (cities: City[]): City[] => {
-  if (cities.length <= 2) return cities;
-  
-  // Implementação simples do algoritmo do vizinho mais próximo
-  const route: City[] = [cities[0]];
-  const remaining = cities.slice(1);
-  
-  while (remaining.length > 0) {
-    const current = route[route.length - 1];
-    let nearestIndex = 0;
-    let minDistance = Infinity;
-    
-    remaining.forEach((city, index) => {
-      const distance = calculateDistance(current, city);
-      if (distance < minDistance) {
-        minDistance = distance;
-        nearestIndex = index;
-      }
-    });
-    
-    route.push(remaining[nearestIndex]);
-    remaining.splice(nearestIndex, 1);
-  }
-  
-  return route;
-};
-
-// Função para calcular a distância total da rota
-const getRouteDistance = (cities: City[]): number => {
-  let totalDistance = 0;
-  for (let i = 0; i < cities.length - 1; i++) {
-    totalDistance += calculateDistance(cities[i], cities[i + 1]);
-  }
-  return totalDistance;
-};
 
 interface CitySelectorProps {
   selectedCities: City[];
@@ -95,15 +52,8 @@ const CitySelector = ({ selectedCities, onCitiesChange, maxCities }: CitySelecto
     { id: '20', name: 'São José dos Campos', state: 'SP' }
   ];
 
-  const handleCityToggle = (city: City) => {
-    if (selectedCities.find(c => c.id === city.id)) {
-      onCitiesChange(selectedCities.filter(c => c.id !== city.id));
-    } else if (selectedCities.length < maxCities) {
-      onCitiesChange([...selectedCities, city]);
-    }
-  };
 
-  const handleChange = (_, newValue: City[]) => {
+  const handleChange = (_: any, newValue: City[]) => {
     if (newValue.length <= maxCities) {
       onCitiesChange(newValue);
     }

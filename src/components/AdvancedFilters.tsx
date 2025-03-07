@@ -2,8 +2,6 @@ import {
   Box,
   Typography,
   Slider,
-  FormControlLabel,
-  Checkbox,
   Chip,
   Divider,
 } from '@mui/material';
